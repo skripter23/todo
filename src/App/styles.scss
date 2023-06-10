@@ -22,7 +22,7 @@
         border: none;
         outline: none;
         padding: 16px;
-        font-size: 20px;
+        font-size: 16px;
 
         &--wrapper {
             display: flex;
@@ -65,10 +65,25 @@
             cursor: pointer;
         }
 
+        
         &-item-edit__click {
             position: absolute;
             right: 40px;
             cursor: pointer;
+        }
+        
+        &-item-pin {
+            position: absolute;
+            right: 64px;
+            cursor: pointer;
+        }
+
+        &-item-pinned {
+            background-color: rgba(255, 255, 255, 0.05);
+
+            & > svg, & > input {
+                background-color: transparent;
+            }
         }
 
         &-item-edit {

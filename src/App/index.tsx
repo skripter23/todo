@@ -7,11 +7,25 @@ import { GoTrashcan } from "react-icons/go";
 import { MdOutlineModeEditOutline } from "react-icons/md";
 import { AiOutlineCheck } from "react-icons/ai";
 import { RxCross2 } from "react-icons/rx";
+import { BsPin } from "react-icons/bs";
+import { CiUndo } from "react-icons/ci";
 
 import "./styles.scss";
 
 const App: FC = () => {
-  const { todos, inputRef, editInputRef, handleAdd, handleClear, handleRemoveItem, handleEdit, handleEditCancel, handleEditSubmit } = useApp();
+  const {
+    todos,
+    inputRef,
+    editInputRef,
+    handleAdd,
+    handleClear,
+    handleRemoveItem,
+    handleEdit,
+    handleEditCancel,
+    handleEditSubmit,
+    handlePin,
+    handleUnPin,
+  } = useApp();
 
   return (
     <main className="todos">
@@ -33,14 +47,19 @@ const App: FC = () => {
           return (
             <Fragment key={id}>
               {!item.isEditing && (
-                <span>
+                <span className={`${item.pin.pinned ? "todos--content-item-pinned" : ""}`}>
                   {value}
+                  {item.pin.pinned ? (
+                    <CiUndo className="todos--content-item-pin" onClick={() => handleUnPin(item)} />
+                  ) : (
+                    <BsPin className="todos--content-item-pin" onClick={() => handlePin(item)} />
+                  )}
                   <MdOutlineModeEditOutline className="todos--content-item-edit__click" onClick={() => handleEdit(id)} />
                   <GoTrashcan className="todos--content-item-delete" onClick={() => handleRemoveItem(id)} />
                 </span>
               )}
               {item.isEditing && (
-                <div className="todos--content-item-edit">
+                <div className={`${item.pin.pinned ? "todos--content-item-pinned" : ""} todos--content-item-edit`}>
                   <input ref={editInputRef} type="text" placeholder="Edit me..." />
                   <AiOutlineCheck className="todos--content-item-edit-submit" onClick={() => handleEditSubmit(id)} />
                   <RxCross2 className="todos--content-item-edit-cancel" onClick={() => handleEditCancel(id)} />

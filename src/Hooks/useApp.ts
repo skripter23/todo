@@ -1,9 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { arrayMoveImmutable } from "array-move";
+
 interface Todos {
   id: number;
   value: string;
   isEditing: boolean;
+  pin: {
+    pinned: boolean;
+    oldIndex: number;
+  };
 }
 
 const useApp = () => {
@@ -31,6 +37,10 @@ const useApp = () => {
                 id: counter,
                 value: inputRef.current.value,
                 isEditing: false,
+                pin: {
+                  pinned: false,
+                  oldIndex: NaN,
+                },
               },
             ];
           }
@@ -41,6 +51,10 @@ const useApp = () => {
               id: counter,
               value: inputRef.current.value,
               isEditing: false,
+              pin: {
+                pinned: false,
+                oldIndex: NaN,
+              },
             },
           ];
         }
@@ -125,6 +139,47 @@ const useApp = () => {
     });
   }, []);
 
+  const handlePin = useCallback((item: Todos) => {
+    setTodos((prev) => {
+      if (prev !== null) {
+        prev = prev.map((element) => {
+          if (element.id === item.id && prev !== null) {
+            element.pin.oldIndex = prev.indexOf(item);
+            element.pin.pinned = true;
+          }
+          return element;
+        });
+        return arrayMoveImmutable(prev, prev.indexOf(item), 0);
+      }
+      return prev;
+    });
+  }, []);
+
+  const handleUnPin = useCallback((item: Todos) => {
+    setTodos((prev) => {
+      if (prev !== null) {
+        return arrayMoveImmutable(prev, prev.indexOf(item), item.pin.oldIndex);
+      }
+      return prev;
+    });
+    setTimeout(
+      () =>
+        setTodos((prev) => {
+          if (prev !== null) {
+            return prev.map((element) => {
+              if (element.id === item.id) {
+                element.pin.pinned = false;
+                element.pin.oldIndex = NaN;
+              }
+              return element;
+            });
+          }
+          return prev;
+        }),
+      0
+    );
+  }, []);
+
   return {
     todos,
     inputRef,
@@ -135,6 +190,8 @@ const useApp = () => {
     handleEdit,
     handleEditCancel,
     handleEditSubmit,
+    handlePin,
+    handleUnPin,
   };
 };
 
