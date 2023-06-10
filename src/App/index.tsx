@@ -1,0 +1,57 @@
+import { FC, Fragment } from "react";
+
+import useApp from "../Hooks/useApp";
+
+import SendIcon from "../Icons/SendIcon";
+import { GoTrashcan } from "react-icons/go";
+import { MdOutlineModeEditOutline } from "react-icons/md";
+import { AiOutlineCheck } from "react-icons/ai";
+import { RxCross2 } from "react-icons/rx";
+
+import "./styles.scss";
+
+const App: FC = () => {
+  const { todos, inputRef, editInputRef, handleAdd, handleClear, handleRemoveItem, handleEdit, handleEditCancel, handleEditSubmit } = useApp();
+
+  return (
+    <main className="todos">
+      <h1 className="todos--title">Todos</h1>
+      <div className="todos--input--wrapper">
+        <input ref={inputRef} type="text" className="todos--input" />
+        <SendIcon onClick={handleAdd} />
+      </div>
+      <div className="todos--content">
+        {todos && (
+          <div className="todos--clear" onClick={handleClear}>
+            <span>Clear all</span>
+            <GoTrashcan />
+          </div>
+        )}
+        {(todos || []).map((item) => {
+          const { id, value } = item;
+
+          return (
+            <Fragment key={id}>
+              {!item.isEditing && (
+                <span>
+                  {value}
+                  <MdOutlineModeEditOutline className="todos--content-item-edit__click" onClick={() => handleEdit(id)} />
+                  <GoTrashcan className="todos--content-item-delete" onClick={() => handleRemoveItem(id)} />
+                </span>
+              )}
+              {item.isEditing && (
+                <div className="todos--content-item-edit">
+                  <input ref={editInputRef} type="text" placeholder="Edit me..." />
+                  <AiOutlineCheck className="todos--content-item-edit-submit" onClick={() => handleEditSubmit(id)} />
+                  <RxCross2 className="todos--content-item-edit-cancel" onClick={() => handleEditCancel(id)} />
+                </div>
+              )}
+            </Fragment>
+          );
+        })}
+      </div>
+    </main>
+  );
+};
+
+export default App;
