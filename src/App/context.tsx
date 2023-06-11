@@ -228,7 +228,7 @@ const TodoProvider: FC<ProviderProps> = ({ children }) => {
           movedArray.sort((a, b) => a.id - b.id);
         }
         notificationSuccess("Item successfully unpinned!");
-        setTodos(movedArray);
+        return movedArray;
       }
       notificationWarn("No item contains!");
       return prev;
