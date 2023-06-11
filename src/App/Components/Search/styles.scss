@@ -2,9 +2,11 @@
 @import '../../../Styles/variables.scss';
 
 .input--wrapper {
-    @include flex(center, center);
+    @include flex(center);
+    @include size(719px, 56px);
+    background-color: $todo-light-grey;
     position: relative;
-
+    
     & > svg {
         @include icon-button(0);
         background-color: $todo-bg-transparent;
@@ -14,9 +16,9 @@
 }
 
 .input {
-    @include size(719px, 56px);
     @include border-off;
-    background-color: $todo-light-grey;
+    @include size(95%, 100%);
+    background-color: $todo-bg-transparent;
     padding: 1rem;
     font-size: inherit;
 }
