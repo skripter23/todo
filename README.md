@@ -22,11 +22,11 @@
 ## ✨ If you edit a pin, you edit it in the same place where you placed it
 
 ![image](https://github.com/skripter23/todo/assets/70813115/31bf84f2-31dc-444e-8754-e44bf323be4f)
-![image](https://github.com/skripter23/todo/assets/70813115/67c2cc19-ac62-4f32-8bd1-57d9c800bc3b)
+![image](https://github.com/skripter23/todo/assets/70813115/b2d9a83a-27b9-4b4a-8343-891a08ce6037)
 
 ## ✨ Unpinned item edit
 
 ![image](https://github.com/skripter23/todo/assets/70813115/976426e7-6223-4274-ad50-290aa2958f57)
-![image](https://github.com/skripter23/todo/assets/70813115/fbe6c890-7132-449e-baec-b35f2820cdc9)
+![image](https://github.com/skripter23/todo/assets/70813115/c4856999-1552-4cf8-83b1-f53a8016cb02)
 
 
