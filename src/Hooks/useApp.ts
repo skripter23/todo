@@ -139,43 +139,70 @@ const useApp = () => {
     });
   }, []);
 
-  const handlePin = useCallback((item: Todos) => {
-    setTodos((prev) => {
-      if (prev !== null) {
-        prev = prev.map((element) => {
-          if (element.id === item.id && prev !== null) {
-            element.pin.oldIndex = prev.indexOf(item);
-            element.pin.pinned = true;
-          }
-          return element;
-        });
-        return arrayMoveImmutable(prev, prev.indexOf(item), 0);
-      }
-      return prev;
-    });
-  }, []);
-
-  console.log(todos);
+  const handlePin = useCallback(
+    (item: Todos) => {
+      setTodos((prev) => {
+        if (prev !== null) {
+          prev = prev.map((element) => {
+            if (element.id === item.id && prev !== null) {
+              element.pin.oldIndex = prev.indexOf(item);
+              element.pin.pinned = true;
+            }
+            return element;
+          });
+          return arrayMoveImmutable(prev, prev.indexOf(item), 0);
+        }
+        return prev;
+      });
+    },
+    [todos]
+  );
 
   const handleUnPin = useCallback((item: Todos) => {
     const oldIndex = item.pin.oldIndex;
     let pinnedElements = 0;
     setTodos((prev) => {
       if (prev !== null) {
-        const movedArray = arrayMoveImmutable(prev, prev.indexOf(item), oldIndex).map((element) => {
-          if (element.id === item.id) {
-            element.pin.oldIndex = NaN;
-            element.pin.pinned = false;
-          }
-          if (element.pin.pinned) {
-            pinnedElements += 1;
-          }
-          return element;
-        });
+        const movedArray = arrayMoveImmutable(prev, prev.indexOf(item), oldIndex)
+          .sort((a, b) => {
+            if (isNaN(a.pin.oldIndex) && !isNaN(b.pin.oldIndex)) {
+              return 1;
+            } else if (!isNaN(a.pin.oldIndex) && isNaN(b.pin.oldIndex)) {
+              return -1;
+            }
+            return 0;
+          })
+          .map((element) => {
+            if (element.id === item.id) {
+              element.pin.oldIndex = NaN;
+              element.pin.pinned = false;
+            }
+            if (element.pin.pinned) {
+              pinnedElements += 1;
+            }
+            return element;
+          });
         if (pinnedElements === 0) {
           movedArray.sort((a, b) => a.id - b.id);
         }
         setTodos(movedArray);
+      }
+      return prev;
+    });
+  }, []);
+
+  const handleSort = useCallback(() => {
+    setTodos((prev) => {
+      if (prev !== null) {
+        const sortedArray = [
+          ...prev.sort((a, b) => {
+            if (a.pin.pinned || b.pin.pinned) {
+              return 0;
+            }
+            return a.id - b.id;
+          }),
+        ];
+        return sortedArray;
       }
       return prev;
     });
@@ -193,6 +220,7 @@ const useApp = () => {
     handleEditSubmit,
     handlePin,
     handleUnPin,
+    handleSort,
   };
 };
 

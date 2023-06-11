@@ -7,7 +7,7 @@ import { GoTrashcan } from "react-icons/go";
 import { MdOutlineModeEditOutline } from "react-icons/md";
 import { AiOutlineCheck } from "react-icons/ai";
 import { RxCross2 } from "react-icons/rx";
-import { BsPin } from "react-icons/bs";
+import { BsPin, BsSortNumericDown } from "react-icons/bs";
 import { CiUndo } from "react-icons/ci";
 
 import "./styles.scss";
@@ -25,6 +25,7 @@ const App: FC = () => {
     handleEditSubmit,
     handlePin,
     handleUnPin,
+    handleSort,
   } = useApp();
 
   return (
@@ -36,10 +37,20 @@ const App: FC = () => {
       </div>
       <div className="todos--content">
         {todos && (
-          <div className="todos--clear" onClick={handleClear}>
-            <span>Clear all</span>
-            <GoTrashcan />
-          </div>
+          <>
+            <div className="todos--actions__row">
+              <div className="todos--actions__row--button" onClick={handleClear}>
+                <span>Clear all</span>
+                <GoTrashcan />
+              </div>
+              {todos.length > 1 && (
+                <div className="todos--actions__row--button" onClick={handleSort}>
+                  <span>Sort</span>
+                  <BsSortNumericDown />
+                </div>
+              )}
+            </div>
+          </>
         )}
         {(todos || []).map((item) => {
           const { id, value } = item;
