@@ -1,5 +1,5 @@
 # ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
-# ✅ Functionality: CRUD + PIN + SORTING
+# ✅ Functionality: NOTIFICATIONS + CRUD + PIN + SORTING
 
 
 
@@ -28,5 +28,17 @@
 
 ![image](https://github.com/skripter23/todo/assets/70813115/976426e7-6223-4274-ad50-290aa2958f57)
 ![image](https://github.com/skripter23/todo/assets/70813115/b2afb36a-163e-4ca1-8c3f-b2d1db3c4cbd)
+
+## Toastify notification added!
+
+![image](https://github.com/skripter23/todo/assets/70813115/af8a892a-82cf-4329-bb9a-ce43f7767d2b)
+![image](https://github.com/skripter23/todo/assets/70813115/5f488c92-eb89-4b43-af70-6c6076898e4d)
+![image](https://github.com/skripter23/todo/assets/70813115/be04e11e-b9c0-4741-90a5-8e40add1d00f)
+![image](https://github.com/skripter23/todo/assets/70813115/08a770d9-7393-4c6d-9d57-c7c21c40ae8a)
+![image](https://github.com/skripter23/todo/assets/70813115/d33abf90-153d-4116-8fe7-e8188773f679)
+![image](https://github.com/skripter23/todo/assets/70813115/f75d98ed-76d9-48b4-a2ed-613a319f05ed)
+
+
+
 
 
