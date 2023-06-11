@@ -1,4 +1,4 @@
-# 🎉 [![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%2336BCF7&lines=TodoList)](https://git.io/typing-svg)
+# 🎉 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 # ✅ Functionality: CRUD + PIN + SORTING
 
 
