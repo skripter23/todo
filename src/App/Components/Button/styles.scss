@@ -1,0 +1,17 @@
+@import '../../../Styles/mixins.scss';
+@import '../../../Styles/variables.scss';
+
+.button {
+    @include size(100%, 100%);
+    @include flex(center, center);
+    gap: 0.375rem;
+    border: 1px solid $todo-light-grey;
+
+    & > span, & > svg {
+        background-color: $todo-bg-transparent;
+    }
+
+    &:hover {
+        background-color: $todo-light-grey;
+    }
+}

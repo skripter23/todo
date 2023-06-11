@@ -1,0 +1,22 @@
+@import '../../../Styles/mixins.scss';
+@import '../../../Styles/variables.scss';
+
+.input--wrapper {
+    @include flex(center, center);
+    position: relative;
+
+    & > svg {
+        @include icon-button(0);
+        background-color: $todo-bg-transparent;
+        margin-top: 0.3125rem;
+        padding: 0.1875rem;
+    }
+}
+
+.input {
+    @include size(719px, 56px);
+    @include border-off;
+    background-color: $todo-light-grey;
+    padding: 1rem;
+    font-size: inherit;
+}

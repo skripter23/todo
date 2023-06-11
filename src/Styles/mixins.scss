@@ -1,0 +1,30 @@
+@mixin size($width, $height: 100%, $max-width: none, $max-height: none) {
+    width: $width;
+    height: $height;
+    max-width: $max-width;
+    max-height: $max-height;
+}
+
+@mixin icon-button($right) {
+    position: absolute;
+    right: $right;
+    cursor: pointer;
+}
+
+
+@mixin flex($align: flex-start, $justify: flex-start, $direction: row) {
+    display: flex;
+    justify-content: $justify;
+    align-items: $align; 
+    flex-direction: $direction;
+}
+
+@mixin font($size: 1rem, $weight: 400) {
+    font-size: $size;
+    font-weight: $weight;
+}
+
+@mixin border-off {
+    border: none;
+    outline: none; 
+}

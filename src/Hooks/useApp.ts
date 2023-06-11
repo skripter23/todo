@@ -1,16 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import { arrayMoveImmutable } from "array-move";
+import { clearInputRef } from "./helpers";
 
-interface Todos {
-  id: number;
-  value: string;
-  isEditing: boolean;
-  pin: {
-    pinned: boolean;
-    oldIndex: number;
-  };
-}
+import { Todos } from "../Types/interfaces";
+
+import { arrayMoveImmutable } from "array-move";
 
 const useApp = () => {
   const [todos, setTodos] = useState<Array<Todos> | null>(null);
@@ -19,13 +13,7 @@ const useApp = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const editInputRef = useRef<HTMLInputElement>(null);
 
-  const clearInputRef = () => {
-    if (inputRef.current?.value) {
-      inputRef.current.value = "";
-    }
-  };
-
-  const handleAdd = useCallback(() => {
+  const handleSendTodo = useCallback(() => {
     setTodos((prev) => {
       if (inputRef.current?.value) {
         if (prev !== null) {
@@ -61,13 +49,12 @@ const useApp = () => {
       }
       return prev;
     });
-    setTimeout(() => clearInputRef(), 0);
+    setTimeout(() => clearInputRef(inputRef), 0);
   }, [todos]);
 
   const handleClear = useCallback(() => {
     setTodos(null);
     setCounter(0);
-    clearInputRef();
   }, []);
 
   useEffect(() => {
@@ -212,7 +199,7 @@ const useApp = () => {
     todos,
     inputRef,
     editInputRef,
-    handleAdd,
+    handleSendTodo,
     handleClear,
     handleRemoveItem,
     handleEdit,
