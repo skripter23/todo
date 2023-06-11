@@ -3,18 +3,18 @@ import { FC, Fragment } from "react";
 import useApp from "../Hooks/useApp";
 
 import { GoTrashcan } from "react-icons/go";
-import { MdOutlineModeEditOutline } from "react-icons/md";
+
 import { AiOutlineCheck } from "react-icons/ai";
 import { RxCross2 } from "react-icons/rx";
-import { BsPin, BsSortNumericDown } from "react-icons/bs";
-import { CiUndo } from "react-icons/ci";
+import { BsSortNumericDown } from "react-icons/bs";
 
 import Search from "./Components/Search";
 import Title from "./Components/Title";
 import Button from "./Components/Button";
+import TodoItem from "./Components/TodoItem";
+import EditTodoItem from "./Components/EditTodoItem";
 
 import "./styles.scss";
-import TodoItem from "./Components/TodoItem";
 
 const App: FC = () => {
   const {
@@ -61,11 +61,14 @@ const App: FC = () => {
                 />
               )}
               {item.isEditing && (
-                <div className={`${item.pin.pinned ? "todos--content-item-pinned" : ""} todos--content-item-edit`}>
-                  <input ref={editInputRef} type="text" placeholder="Edit me..." defaultValue={item.value} />
-                  <AiOutlineCheck className="todos--content-item-edit-submit" onClick={() => handleEditSubmit(id)} />
-                  <RxCross2 className="todos--content-item-edit-cancel" onClick={() => handleEditCancel(id)} />
-                </div>
+                <EditTodoItem
+                  id={id}
+                  editInputRef={editInputRef}
+                  pinned={item.pin.pinned}
+                  value={item.value}
+                  onEditSubmit={handleEditSubmit}
+                  onEditCancel={handleEditCancel}
+                />
               )}
             </Fragment>
           );

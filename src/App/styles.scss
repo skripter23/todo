@@ -19,48 +19,6 @@
             position: relative;
         }
 
-        &-item-delete {
-            @include icon-button(1rem);
-        }
-
-        
-        &-item-edit__click {
-            @include icon-button(2.5rem);
-        }
-        
-        &-item-pin {
-            @include icon-button(4rem);
-        }
-
-        &-item-pinned {
-            background-color: $todo-light-grey;
-
-            & > svg, & > input {
-                background-color: $todo-bg-transparent;
-            }
-        }
-
-        &-item-edit {
-            @include size(100%);
-            position: relative;
-            padding: 0 !important;
-
-            & > input {
-            @include size(100%, 100%, 719px);
-            @include border-off;
-            padding: 1rem;
-            font-size: inherit;
-            }
-
-            &-submit {
-                @include icon-button(2.5rem);
-            }
-
-            &-cancel {
-                @include icon-button(1rem);
-            }
-        }
-
         
         &__actions--row {
             @include size(100%, 56px, 719px);

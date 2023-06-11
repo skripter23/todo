@@ -7,17 +7,15 @@ import { MdOutlineModeEditOutline } from "react-icons/md";
 
 import { TodoItemProps } from "./interfaces";
 
+import "./styles.scss";
+
 const TodoItem: FC<TodoItemProps> = ({ id, pinned, value, item, onUnPin, onPin, onEdit, onRemove }) => {
   return (
-    <span className={`${pinned ? "todos--content-item-pinned" : ""}`}>
+    <span className={`${pinned ? "item-pinned" : ""}`}>
       {value}
-      {pinned ? (
-        <CiUndo className="todos--content-item-pin" onClick={() => onUnPin(item)} />
-      ) : (
-        <BsPin className="todos--content-item-pin" onClick={() => onPin(item)} />
-      )}
-      <MdOutlineModeEditOutline className="todos--content-item-edit__click" onClick={() => onEdit(id)} />
-      <GoTrashcan className="todos--content-item-delete" onClick={() => onRemove(id)} />
+      {pinned ? <CiUndo className="item-pin" onClick={() => onUnPin(item)} /> : <BsPin className="item-pin" onClick={() => onPin(item)} />}
+      <MdOutlineModeEditOutline className="item-edit" onClick={() => onEdit(id)} />
+      <GoTrashcan className="item-delete" onClick={() => onRemove(id)} />
     </span>
   );
 };
