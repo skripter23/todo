@@ -1,18 +1,14 @@
 import { FC, Fragment } from "react";
 
-import useApp from "../Hooks/useApp";
-
 import { GoTrashcan } from "react-icons/go";
-
-import { AiOutlineCheck } from "react-icons/ai";
-import { RxCross2 } from "react-icons/rx";
 import { BsSortNumericDown } from "react-icons/bs";
 
-import Search from "./Components/Search";
-import Title from "./Components/Title";
+import { useApp } from "./context";
+
 import Button from "./Components/Button";
 import TodoItem from "./Components/TodoItem";
 import EditTodoItem from "./Components/EditTodoItem";
+import Header from "./Components/Header";
 
 import "./styles.scss";
 
@@ -34,8 +30,7 @@ const App: FC = () => {
 
   return (
     <main className="todos">
-      <Title title="Todos" />
-      <Search inputRef={inputRef} handleSendTodo={handleSendTodo} />
+      <Header inputRef={inputRef as React.RefObject<HTMLInputElement>} onSend={handleSendTodo} />
       <div className="todos--content">
         {todos && (
           <div className="todos--content__actions--row">
@@ -63,7 +58,7 @@ const App: FC = () => {
               {item.isEditing && (
                 <EditTodoItem
                   id={id}
-                  editInputRef={editInputRef}
+                  editInputRef={editInputRef as React.RefObject<HTMLInputElement>}
                   pinned={item.pin.pinned}
                   value={item.value}
                   onEditSubmit={handleEditSubmit}

@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import { SearchProps } from "./interfaces";
 
-import SendIcon from "../../../Icons/SendIcon";
+import SendIcon from "../../../../../Icons/SendIcon";
 
 import "./styles.scss";
 

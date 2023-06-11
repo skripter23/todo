@@ -1,17 +1,40 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-
-import { clearInputRef } from "./helpers";
-
-import { Todos } from "../Types/interfaces";
+import { createContext, FC, useCallback, useContext, useEffect, useRef, useState } from "react";
 
 import { arrayMoveImmutable } from "array-move";
 
-const useApp = () => {
+import { Todos, ContextType, ProviderProps } from "../Types/interfaces";
+
+const TodoContext = createContext<ContextType>({
+  todos: null,
+  inputRef: null,
+  editInputRef: null,
+  handleSendTodo: () => undefined,
+  handleClear: () => undefined,
+  handleRemoveItem: () => undefined,
+  handleEdit: () => undefined,
+  handleEditCancel: () => undefined,
+  handleEditSubmit: () => undefined,
+  handlePin: () => undefined,
+  handleUnPin: () => undefined,
+  handleSort: () => undefined,
+});
+
+export const useApp = () => {
+  return useContext(TodoContext);
+};
+
+const TodoProvider: FC<ProviderProps> = ({ children }) => {
   const [todos, setTodos] = useState<Array<Todos> | null>(null);
   const [counter, setCounter] = useState<number>(0);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const editInputRef = useRef<HTMLInputElement>(null);
+
+  const clearInputRef = (inputRef: React.RefObject<HTMLInputElement>) => {
+    if (inputRef.current?.value) {
+      inputRef.current.value = "";
+    }
+  };
 
   const handleSendTodo = useCallback(() => {
     setTodos((prev) => {
@@ -195,20 +218,26 @@ const useApp = () => {
     });
   }, []);
 
-  return {
-    todos,
-    inputRef,
-    editInputRef,
-    handleSendTodo,
-    handleClear,
-    handleRemoveItem,
-    handleEdit,
-    handleEditCancel,
-    handleEditSubmit,
-    handlePin,
-    handleUnPin,
-    handleSort,
-  };
+  return (
+    <TodoContext.Provider
+      value={{
+        todos,
+        inputRef,
+        editInputRef,
+        handleSendTodo,
+        handleClear,
+        handleRemoveItem,
+        handleEdit,
+        handleEditCancel,
+        handleEditSubmit,
+        handlePin,
+        handleUnPin,
+        handleSort,
+      }}
+    >
+      {children}
+    </TodoContext.Provider>
+  );
 };
 
-export default useApp;
+export default TodoProvider;

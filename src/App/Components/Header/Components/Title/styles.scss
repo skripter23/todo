@@ -1,0 +1,5 @@
+@import '../../../../../Styles/mixins.scss';
+
+.title {
+    @include font(3rem, 600);
+}
