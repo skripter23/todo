@@ -155,29 +155,30 @@ const useApp = () => {
     });
   }, []);
 
+  console.log(todos);
+
   const handleUnPin = useCallback((item: Todos) => {
+    const oldIndex = item.pin.oldIndex;
+    let pinnedElements = 0;
     setTodos((prev) => {
       if (prev !== null) {
-        return arrayMoveImmutable(prev, prev.indexOf(item), item.pin.oldIndex);
+        const movedArray = arrayMoveImmutable(prev, prev.indexOf(item), oldIndex).map((element) => {
+          if (element.id === item.id) {
+            element.pin.oldIndex = NaN;
+            element.pin.pinned = false;
+          }
+          if (element.pin.pinned) {
+            pinnedElements += 1;
+          }
+          return element;
+        });
+        if (pinnedElements === 0) {
+          movedArray.sort((a, b) => a.id - b.id);
+        }
+        setTodos(movedArray);
       }
       return prev;
     });
-    setTimeout(
-      () =>
-        setTodos((prev) => {
-          if (prev !== null) {
-            return prev.map((element) => {
-              if (element.id === item.id) {
-                element.pin.pinned = false;
-                element.pin.oldIndex = NaN;
-              }
-              return element;
-            });
-          }
-          return prev;
-        }),
-      0
-    );
   }, []);
 
   return {
