@@ -27,7 +27,7 @@ const TodoProvider: FC<ProviderProps> = ({ children }) => {
   const [todos, setTodos] = useState<Array<Todos> | null>(null);
   const [counter, setCounter] = useState<number>(0);
 
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null) as React.RefObject<HTMLInputElement>;
   const editInputRef = useRef<HTMLInputElement>(null);
 
   const clearInputRef = (inputRef: React.RefObject<HTMLInputElement>) => {

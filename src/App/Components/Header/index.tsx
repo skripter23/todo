@@ -3,16 +3,15 @@ import { FC } from "react";
 import Title from "./Components/Title";
 import Search from "./Components/Search";
 
-interface HeaderProps {
-  inputRef: React.RefObject<HTMLInputElement>;
-  onSend: () => void;
-}
+import { useApp } from "../../context";
 
-const Header: FC<HeaderProps> = ({ inputRef, onSend }) => {
+const Header: FC = () => {
+  const { inputRef, handleSendTodo } = useApp();
+
   return (
     <>
       <Title title="Todos" />
-      <Search inputRef={inputRef} handleSendTodo={onSend} />
+      <Search inputRef={inputRef as React.RefObject<HTMLInputElement>} handleSendTodo={handleSendTodo} />
     </>
   );
 };

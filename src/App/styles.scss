@@ -18,15 +18,5 @@
             padding: 1rem;
             position: relative;
         }
-
-        
-        &__actions--row {
-            @include size(100%, 56px, 719px);
-            @include flex(center, center);
-            border: 1px solid $todo-light-grey;
-            padding: 0 !important;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
     }
 }
