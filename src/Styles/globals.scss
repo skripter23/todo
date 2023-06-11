@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import './variables.scss';
 
 * {
     box-sizing: border-box;
@@ -8,6 +9,10 @@
     
     background-color: #222222;
     color: white;
-
+    
     font-family: 'Inter', sans-serif;
+}
+
+.Toastify__toast-theme--light {
+    background: none !important;
 }

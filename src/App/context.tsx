@@ -4,19 +4,39 @@ import { arrayMoveImmutable } from "array-move";
 
 import { Todos, ContextType, ProviderProps } from "../Types/interfaces";
 
+import { useNotification } from "../Services/NotificationContext/context";
+
 const TodoContext = createContext<ContextType>({
   todos: null,
   inputRef: null,
   editInputRef: null,
-  handleSendTodo: () => undefined,
-  handleClear: () => undefined,
-  handleRemoveItem: () => undefined,
-  handleEdit: () => undefined,
-  handleEditCancel: () => undefined,
-  handleEditSubmit: () => undefined,
-  handlePin: () => undefined,
-  handleUnPin: () => undefined,
-  handleSort: () => undefined,
+  handleSendTodo: () => {
+    throw new Error("Function not implemented.");
+  },
+  handleClear: () => {
+    throw new Error("Function not implemented.");
+  },
+  handleRemoveItem: () => {
+    throw new Error("Function not implemented.");
+  },
+  handleEdit: () => {
+    throw new Error("Function not implemented.");
+  },
+  handleEditCancel: () => {
+    throw new Error("Function not implemented.");
+  },
+  handleEditSubmit: () => {
+    throw new Error("Function not implemented.");
+  },
+  handlePin: () => {
+    throw new Error("Function not implemented.");
+  },
+  handleUnPin: () => {
+    throw new Error("Function not implemented.");
+  },
+  handleSort: () => {
+    throw new Error("Function not implemented.");
+  },
 });
 
 export const useApp = () => {
@@ -30,6 +50,8 @@ const TodoProvider: FC<ProviderProps> = ({ children }) => {
   const inputRef = useRef<HTMLInputElement>(null) as React.RefObject<HTMLInputElement>;
   const editInputRef = useRef<HTMLInputElement>(null);
 
+  const { notificationSuccess, notificationWarn } = useNotification();
+
   const clearInputRef = (inputRef: React.RefObject<HTMLInputElement>) => {
     if (inputRef.current?.value) {
       inputRef.current.value = "";
@@ -41,6 +63,7 @@ const TodoProvider: FC<ProviderProps> = ({ children }) => {
       if (inputRef.current?.value) {
         if (prev !== null) {
           if (!prev.some((e) => e.value === inputRef.current?.value)) {
+            notificationSuccess("Item successfully added");
             setCounter(counter + 1);
             return [
               ...prev,
@@ -56,6 +79,7 @@ const TodoProvider: FC<ProviderProps> = ({ children }) => {
             ];
           }
         } else {
+          notificationSuccess("Item successfully added");
           setCounter(counter + 1);
           return [
             {
@@ -70,12 +94,14 @@ const TodoProvider: FC<ProviderProps> = ({ children }) => {
           ];
         }
       }
+      notificationWarn("Please enter the item text");
       return prev;
     });
     setTimeout(() => clearInputRef(inputRef), 0);
   }, [todos]);
 
   const handleClear = useCallback(() => {
+    notificationSuccess("Todo cleared!");
     setTodos(null);
     setCounter(0);
   }, []);
@@ -90,8 +116,10 @@ const TodoProvider: FC<ProviderProps> = ({ children }) => {
     (id: number) => {
       setTodos((prev) => {
         if (Array.isArray(prev)) {
+          notificationSuccess("Item successfully removed!");
           return prev.filter((e) => e.id !== id);
         }
+        notificationWarn("No items contains!");
         return prev;
       });
     },
@@ -134,6 +162,7 @@ const TodoProvider: FC<ProviderProps> = ({ children }) => {
   const handleEditSubmit = useCallback((id: number) => {
     setTodos((prev) => {
       if (Array.isArray(prev)) {
+        notificationSuccess("Item successfully edited");
         return prev.map((item) => {
           if (item.id === id) {
             item.isEditing = false;
@@ -145,6 +174,7 @@ const TodoProvider: FC<ProviderProps> = ({ children }) => {
           return item;
         });
       }
+      notificationWarn("No items contains!");
       return prev;
     });
   }, []);
@@ -160,8 +190,10 @@ const TodoProvider: FC<ProviderProps> = ({ children }) => {
             }
             return element;
           });
+          notificationSuccess("Item successfully pinned");
           return arrayMoveImmutable(prev, prev.indexOf(item), 0);
         }
+        notificationWarn("No item contains!");
         return prev;
       });
     },
@@ -195,8 +227,10 @@ const TodoProvider: FC<ProviderProps> = ({ children }) => {
         if (pinnedElements === 0) {
           movedArray.sort((a, b) => a.id - b.id);
         }
+        notificationSuccess("Item successfully unpinned!");
         setTodos(movedArray);
       }
+      notificationWarn("No item contains!");
       return prev;
     });
   }, []);
@@ -212,8 +246,10 @@ const TodoProvider: FC<ProviderProps> = ({ children }) => {
             return a.id - b.id;
           }),
         ];
+        notificationSuccess("Item successfully sorted!");
         return sortedArray;
       }
+      notificationWarn("No item contains!");
       return prev;
     });
   }, []);
