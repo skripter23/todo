@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { forwardRef } from "react";
 
 import { SearchProps } from "./interfaces";
 
@@ -6,13 +6,13 @@ import SendIcon from "../../../../../Icons/SendIcon";
 
 import "./styles.scss";
 
-const Search: FC<SearchProps> = ({ inputRef, handleSendTodo }) => {
+const Search = forwardRef<HTMLInputElement, SearchProps>(({ handleSendTodo }, ref) => {
   return (
     <div className="input--wrapper">
-      <input ref={inputRef} type="text" className="input" />
+      <input ref={ref} type="text" className="input" />
       <SendIcon onClick={handleSendTodo} />
     </div>
   );
-};
+});
 
 export default Search;

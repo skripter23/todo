@@ -1,12 +1,22 @@
-import { FC, Fragment } from "react";
+import type { FC } from 'react';
+import { Fragment } from 'react';
 
-import { useApp } from "../../context";
+import { useApp } from '../../context';
 
-import TodoItem from "../TodoItem";
-import EditTodoItem from "../EditTodoItem";
+import TodoItem from '../TodoItem';
+import EditTodoItem from '../EditTodoItem';
 
 const TodoItems: FC = () => {
-  const { todos, editInputRef, handleEdit, handleRemoveItem, handlePin, handleUnPin, handleEditSubmit, handleEditCancel } = useApp();
+  const {
+    todos,
+    editInputRef,
+    handleEdit,
+    handleRemoveItem,
+    handlePin,
+    handleUnPin,
+    handleEditSubmit,
+    handleEditCancel,
+  } = useApp();
 
   return (todos || []).map((item) => {
     const {
@@ -33,7 +43,7 @@ const TodoItems: FC = () => {
         {isEditing && (
           <EditTodoItem
             id={id}
-            editInputRef={editInputRef as React.RefObject<HTMLInputElement>}
+            ref={editInputRef}
             pinned={pinned}
             value={value}
             onEditSubmit={handleEditSubmit}

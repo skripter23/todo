@@ -1,4 +1,4 @@
-import { FC } from "react";
+import type { FC } from "react";
 
 import Title from "./Components/Title";
 import Search from "./Components/Search";
@@ -11,7 +11,7 @@ const Header: FC = () => {
   return (
     <>
       <Title title="Todos" />
-      <Search inputRef={inputRef as React.RefObject<HTMLInputElement>} handleSendTodo={handleSendTodo} />
+      <Search ref={inputRef} handleSendTodo={handleSendTodo} />
     </>
   );
 };
