@@ -1,5 +1,5 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 
 import TodoApp from "./App/";
 import TodoProvider from "./App/context";
@@ -8,12 +8,12 @@ import NotificationProvider from "./Services/NotificationContext/context";
 import "./Styles/globals.scss";
 import "react-toastify/dist/ReactToastify.css";
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
+createRoot(document.getElementById("root") as HTMLDivElement).render(
+  <StrictMode>
     <NotificationProvider>
       <TodoProvider>
         <TodoApp />
       </TodoProvider>
     </NotificationProvider>
-  </React.StrictMode>
+  </StrictMode>
 );
